@@ -36,7 +36,7 @@ public class SpawnSystem : SystemBase
         //Set the position of where the Player will be spawned
         EntityManager.SetComponentData(player, new Translation
         {
-            Value = new float3(-3.50079036f, -6.92657089f, -74.7393417f)
+            Value = new float3(-1.48000002f, -8.472f, -10.8000002f)
         });
     }
     protected override void OnUpdate()
