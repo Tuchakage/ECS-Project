@@ -1,8 +1,10 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using UnityEngine;
+
 
 
 
@@ -11,22 +13,25 @@ using UnityEngine;
 // TriggerGravityFactor behaviour added.
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(EndFramePhysicsSystem))]
-public class DestroyEntityAuthoringSystem : SystemBase
+public class DestroyEntityAuthoringSystem : JobComponentSystem
 {
     BuildPhysicsWorld m_BuildPhysicsWorldSystem;
     StepPhysicsWorld m_StepPhysicsWorldSystem;
-
+    EndSimulationEntityCommandBufferSystem m_EntityCommandBufferSystem;
     protected override void OnCreate()
     {
         m_BuildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
         m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
+        m_EntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
     }
 
-    struct DestroyEntityAuthoringJob : ITriggerEventsJob 
+    struct DestroyEntityAuthoringJob : ITriggerEventsJob
     {
         [ReadOnly] public ComponentDataFromEntity<TriggerGravityFactor> TriggerGravityFactorGroup; //Used to Check For Triggers
         public ComponentDataFromEntity<PhysicsVelocity> PhysicsVelocityGroup; //Used to Check For Dynamic Bodies
-        public void Execute(TriggerEvent triggerEvent) 
+        public ComponentDataFromEntity<EnemyTag> enemyTagGroup; //Used to if the Entity has the Enemy Tag
+        public EntityCommandBuffer commandBuffer;
+        public void Execute(TriggerEvent triggerEvent)
         {
             //Get References to the Trigger and to whatever is colliding with the Trigger
             Entity entityA = triggerEvent.EntityA;
@@ -55,18 +60,29 @@ public class DestroyEntityAuthoringSystem : SystemBase
             // If Body A is the the trigger then set Entity B to be the dynamic Entity, if Body A is not the trigger then Entity A is the Dynamic Entity
             var dynamicEntity = isBodyATrigger ? entityB : entityA;
 
-
-            Debug.Log("Trigger Colliding With: "+dynamicEntity);
+            bool isBodyEnemy = enemyTagGroup.HasComponent(dynamicEntity);
+            if (isBodyEnemy) //If the Dynamic Body has the Enemy Tag
+            {
+                //Destroy It
+                commandBuffer.DestroyEntity(dynamicEntity);
+            }
+            
+            Debug.Log("Trigger Colliding With: " + dynamicEntity);
         }
     }
-    protected override void OnUpdate()
+
+    protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
-        Dependency = new DestroyEntityAuthoringJob
+        var job = new DestroyEntityAuthoringJob
         {
             //Gets References to everything in the scene with these Data Components
             TriggerGravityFactorGroup = GetComponentDataFromEntity<TriggerGravityFactor>(true),
             PhysicsVelocityGroup = GetComponentDataFromEntity<PhysicsVelocity>(),
-        }.Schedule(m_StepPhysicsWorldSystem.Simulation,
-    ref m_BuildPhysicsWorldSystem.PhysicsWorld, Dependency);
+            enemyTagGroup = GetComponentDataFromEntity<EnemyTag>(),
+            commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer()
+        }.Schedule(m_StepPhysicsWorldSystem.Simulation, ref m_BuildPhysicsWorldSystem.PhysicsWorld, inputDeps);
+
+        m_EntityCommandBufferSystem.AddJobHandleForProducer(job);
+        return job;
     }
 }
