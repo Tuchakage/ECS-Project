@@ -29,7 +29,7 @@ public class DestroyEntityAuthoringSystem : JobComponentSystem
     {
         [ReadOnly] public ComponentDataFromEntity<TriggerGravityFactor> TriggerGravityFactorGroup; //Used to Check For Triggers
         public ComponentDataFromEntity<PhysicsVelocity> PhysicsVelocityGroup; //Used to Check For Dynamic Bodies
-        public ComponentDataFromEntity<EnemyTag> enemyTagGroup; //Used to if the Entity has the Enemy Tag
+        public ComponentDataFromEntity<EnemyTag> enemyTagGroup; //Used to Check if the Entity has the Enemy Tag
         public EntityCommandBuffer commandBuffer;
         public void Execute(TriggerEvent triggerEvent)
         {

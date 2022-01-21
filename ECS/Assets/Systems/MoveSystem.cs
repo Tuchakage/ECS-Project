@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-
+using UnityEngine;
 public class MoveSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -25,5 +25,10 @@ public class MoveSystem : SystemBase
             translation.Value += direction * moveComponent.SpeedValue * deltaTime;
 
         }).Schedule();
+    }
+
+    public void Hello() 
+    {
+        Debug.Log("Hello");
     }
 }
