@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int enemyCount;
+    public int maxEnemy;
     public int multiplier;
-
+    private WaveSystem ws;
     public int wave;
+    public bool waveSpawned;
 
     private void Awake()
     {
@@ -23,12 +25,15 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
+
     }
     // Start is called before the first frame update
     void Start()
     {
         enemyCount = 0;
         wave = 1;
+        waveSpawned = false;
+        
     }
 
     // Update is called once per frame
@@ -44,23 +49,27 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseWave() 
     {
-
-    }
-    public int GetEnemyCount() 
-    {
-        return enemyCount;
-    }
-
-    public int GetWaveNumber() 
-    {
-        return wave;
+        wave++;
+        //Reset Enemy Count
+        enemyCount = 0;
     }
 
     public int GetSpawnNumber(int wave) 
     {
-        if (wave == 1) 
+        if (wave == 1)
         {
             multiplier = 5;
+            maxEnemy = multiplier;
+        }
+        else if (wave == 2) 
+        {
+            multiplier = 10;
+            maxEnemy = multiplier;
+        }
+        else if (wave == 3)
+        {
+            multiplier = 20;
+            maxEnemy = multiplier;
         }
         return multiplier;
     }

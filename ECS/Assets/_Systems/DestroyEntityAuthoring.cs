@@ -65,9 +65,21 @@ public class DestroyEntityAuthoringSystem : JobComponentSystem
             {
                 //Destroy It
                 commandBuffer.DestroyEntity(dynamicEntity);
+                GameManager.instance.IncreaseEnemyCount();
+                if (GameManager.instance.enemyCount == GameManager.instance.maxEnemy) //If this was the last Enemy left
+                {
+
+                    GameManager.instance.IncreaseWave();
+                    //Make Wave Spawned False so that a new wave will start
+                    GameManager.instance.waveSpawned = false;
+                    Debug.Log("Wave");
+                }
+                //Increase Enemy Count In Game Manager
+
+               // Debug.Log("Increase Enemy Count");
             }
             
-            Debug.Log("Trigger Colliding With: " + dynamicEntity);
+            //Debug.Log("Trigger Colliding With: " + dynamicEntity);
         }
     }
 

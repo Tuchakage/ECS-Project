@@ -1297,7 +1297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1022372578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1651,8 +1651,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCount: 0
+  maxEnemy: 0
   multiplier: 0
   wave: 0
+  waveSpawned: 0
 --- !u!1 &1183601483
 GameObject:
   m_ObjectHideFlags: 0
