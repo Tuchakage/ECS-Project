@@ -4,4 +4,5 @@ using Unity.Entities;
 public struct EnemyTag : IComponentData
 {
     public Entity target;
+    public bool isPlayerAttacking;
 }

@@ -60,9 +60,12 @@ public class DestroyEntityAuthoringSystem : JobComponentSystem
             // If Body A is the the trigger then set Entity B to be the dynamic Entity, if Body A is not the trigger then Entity A is the Dynamic Entity
             var dynamicEntity = isBodyATrigger ? entityB : entityA;
 
+            //Check whether the dynamic entity has the Enemy tag
             bool isBodyEnemy = enemyTagGroup.HasComponent(dynamicEntity);
-            if (isBodyEnemy) //If the Dynamic Body has the Enemy Tag
-            {
+            bool checkIfPlayerAttacking = enemyTagGroup[dynamicEntity].isPlayerAttacking;
+
+            if (isBodyEnemy && checkIfPlayerAttacking) //If the Dynamic Body has the Enemy Tag
+            {  
                 //Destroy It
                 commandBuffer.DestroyEntity(dynamicEntity);
                 GameManager.instance.IncreaseEnemyCount();
