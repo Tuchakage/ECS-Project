@@ -28,6 +28,6 @@ public class ProcessInputDataSystem : SystemBase
             eTag.isPlayerAttacking = inputA;
             
         }).Schedule();
-        Debug.Log("Player attacking = " + inputA);
+        //Debug.Log("Player attacking = " + inputA);
     }
 }

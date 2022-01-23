@@ -5,12 +5,14 @@ using UnityEngine;
 public class WaveSystem : SystemBase
 {
     private Entity prefab;
+    private Entity playerPrefab;
     private int waveNumber;
     private bool hasWaveSpawned;
     protected override void OnStartRunning()
     {
         //Get the data components
         prefab = GetSingleton<SpawnComponent>().spawnPrefab;
+        playerPrefab = GetSingleton<SpawnComponent>().playerPrefab;
         //Entity playerPrefab = GetSingleton<SpawnComponent>().playerPrefab;
         //Gets the Wave Number the player is on
         waveNumber = GameManager.instance.wave;
@@ -20,17 +22,14 @@ public class WaveSystem : SystemBase
         SpawnWave();
 
 
-      
 
-
-
-        //Spawns Entity
-        //Entity player = EntityManager.Instantiate(playerPrefab);
-        ////Set the position of where the Player will be spawned
-        //EntityManager.SetComponentData(player, new Translation
-        //{
-        //    Value = new float3(-1.48000002f, -8.69f, -10.8000002f)
-        //});
+        //Spawns Player
+        Entity player = EntityManager.Instantiate(playerPrefab);
+        //Set the position of where the Player will be spawned
+        EntityManager.SetComponentData(player, new Translation
+        {
+            Value = new float3(-1.94000006f, -6.57079887f, -7.19999981f)
+        });
     }
     protected override void OnUpdate()
     {
@@ -41,7 +40,7 @@ public class WaveSystem : SystemBase
         //Debug.Log("Works");
         //Debug.Log("Wave Number: " + waveNumber);
         //Debug.Log("Has Waved Spawned = " + hasWaveSpawned);
-        if ((waveNumber > 1 && waveNumber < 4) && !hasWaveSpawned) 
+        if ((waveNumber > 0 && waveNumber < 4) && !hasWaveSpawned) 
         {
             SpawnWave();
             

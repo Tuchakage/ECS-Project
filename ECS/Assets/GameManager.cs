@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -15,14 +17,15 @@ public class GameManager : MonoBehaviour
     private WaveSystem ws;
     public int wave;
     public bool waveSpawned;
+    public GameObject Panel;
 
     private void Awake()
     {
-        if (instance != null && instance != this) 
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (instance != null && instance != this) 
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         instance = this;
 
@@ -33,13 +36,19 @@ public class GameManager : MonoBehaviour
         enemyCount = 0;
         wave = 1;
         waveSpawned = false;
-        
+        Time.timeScale = 1; //Make sure the game is not paused
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (wave > 3) 
+        {
+            Panel.SetActive(true);
+            Time.timeScale = 0;
+            //SceneManager.LoadScene("WinScreen");
+        }
     }
 
     public void IncreaseEnemyCount() 
@@ -72,5 +81,11 @@ public class GameManager : MonoBehaviour
             maxEnemy = multiplier;
         }
         return multiplier;
+    }
+
+    public void RestartLevel() 
+    {
+        SceneManager.LoadScene(0);
+        
     }
 }
