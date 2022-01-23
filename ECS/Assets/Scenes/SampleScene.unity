@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 634332653}
   - component: {fileID: 634332652}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 3086415529501729588, guid: d3985890cda9d984e821f538543cec33, type: 3}
-  multiplier: 20
   playerPrefab: {fileID: 3078654093215295136, guid: 32501aabfedfa9146a3410cfcd8c6dbe, type: 3}
 --- !u!114 &634332653
 MonoBehaviour:

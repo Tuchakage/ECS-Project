@@ -50,9 +50,10 @@ public class GameManager : MonoBehaviour
         waveCountertxt.text = "Wave " + wave;
         if (wave > 3) 
         {
+            enemyCounttxt.enabled = false;
+            waveCountertxt.enabled = false;
             Panel.SetActive(true);
             Time.timeScale = 0;
-            //SceneManager.LoadScene("WinScreen");
         }
     }
 

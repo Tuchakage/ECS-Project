@@ -22,14 +22,6 @@ public class FindPlayerSystem : ComponentSystem
             });
         });
 
-        //For Each Enemy that has a Translation and Enemy tag
-        Entities.ForEach((Entity entity, ref Translation translation, ref EnemyTag getPlayer) => {
-
-            //Gets the translation of the entity assigned to the target variable in the EnemyTag Script
-            Translation targetTranslation = World.EntityManager.GetComponentData<Translation>(getPlayer.target);
-            //Debug.DrawLine(translation.Value, targetTranslation.Value);
-        });
-
  
 
     }

@@ -4,6 +4,5 @@ using Unity.Entities;
 public struct SpawnComponent : IComponentData
 {
     public Entity spawnPrefab;
-    public int multiplier;
     public Entity playerPrefab;
 }
