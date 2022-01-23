@@ -40,7 +40,7 @@ public class WaveSystem : SystemBase
         //Debug.Log("Works");
         //Debug.Log("Wave Number: " + waveNumber);
         //Debug.Log("Has Waved Spawned = " + hasWaveSpawned);
-        if ((waveNumber > 0 && waveNumber < 4) && !hasWaveSpawned) 
+        if ((waveNumber > 0 && waveNumber < 5) && !hasWaveSpawned) 
         {
             SpawnWave();
             

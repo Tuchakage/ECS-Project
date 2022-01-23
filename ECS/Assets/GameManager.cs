@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         enemyCounttxt.text = "Enemies Defeated: " + enemyCount;
         waveCountertxt.text = "Wave " + wave;
-        if (wave > 3) 
+        if (wave > 4) 
         {
             enemyCounttxt.enabled = false;
             waveCountertxt.enabled = false;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
             multiplier = 5;
             maxEnemy = multiplier;
         }
-        else if (wave == 2) 
+        else if (wave == 2)
         {
             multiplier = 10;
             maxEnemy = multiplier;
@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour
         else if (wave == 3)
         {
             multiplier = 20;
+            maxEnemy = multiplier;
+        }
+        else if (wave == 4) 
+        {
+            multiplier = 200;
             maxEnemy = multiplier;
         }
         return multiplier;
