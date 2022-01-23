@@ -58,7 +58,7 @@ public class WaveSystem : SystemBase
             {
                 Value = new float3(
                     UnityEngine.Random.Range(-8f, 8f),
-                    UnityEngine.Random.Range(-5f, 5f),
+                    -8.1f,
                     UnityEngine.Random.Range(0f, 10f))
             });
             GameManager.instance.waveSpawned = true;

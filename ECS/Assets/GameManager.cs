@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public bool waveSpawned;
     public GameObject Panel;
 
+    public Text enemyCounttxt;
+    public Text waveCountertxt;
+
     private void Awake()
     {
         //if (instance != null && instance != this) 
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        enemyCounttxt.text = "Enemies Defeated: " + enemyCount;
+        waveCountertxt.text = "Wave " + wave;
         if (wave > 3) 
         {
             Panel.SetActive(true);
