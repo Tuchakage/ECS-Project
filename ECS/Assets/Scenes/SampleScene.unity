@@ -317,7 +317,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 46
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 46
     m_Alignment: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Enemies Defeated: 1'
+  m_Text: 'Enemies Defeated: 100'
 --- !u!222 &334712685
 CanvasRenderer:
   m_ObjectHideFlags: 0
